@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DemoGraPhy</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js">
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js">
+    </script>
+
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css"
+        rel="stylesheet" type="text/css" />
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles.css') }}">
+
+</head>
+<body>
+
+    <div class="bbbootstrap">
+        <div class="container">
+
+        <span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span>
+
+        <form action="{{url_for('district')}}" method="post">
+        <div class="input-group">
+        <input type="text" id="Form_Search" value="" placeholder="Enter the name of state" role="searchbox" class="InputBox form-control" autocomplete="off" name="statename">
+        <script>
+            $( function() {
+              var availableTags = [
+                  {% for state in states %}
+                      "{{state}}",
+                  {% endfor %}
+              ];
+              $( "#Form_Search" ).autocomplete({
+                source: availableTags
+              });
+            } );
+            </script>
+        <input type="submit" id="Form_Go" class="Button" value="GO">
+        </form>
+
+
+
+
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
