@@ -32,6 +32,8 @@ def district():
             d_title = dist.get("title")
             if (d_title.split(' '))[-1] == "district":
                 districts.append(d_title.split(' district')[0])
+            if (d_title.split(' '))[-1] == "District":
+                districts.append(d_title.split(' District')[0])
         except:
             continue
 
@@ -43,6 +45,7 @@ def demography():
     encr_dst = (dst.strip()).split(' ')
     url_dst = '_'.join(encr_dst)
     url = Data_URL + url_dst + "_district"
+    print(url)
     response = requests.get(url)
     soup = BeautifulSoup(response.text, "html.parser")
     religions = soup.find(name="div", class_="barbox")
@@ -59,7 +62,7 @@ def demography():
     #REMOVING UNWANTED CHARS
     religion_lst[:] = (value for value in religion_lst if value != "\u2009")
     religion_lst[:] = (value for value in religion_lst if value != "")
-    religion_lst = religion_lst[2:-1]
+    religion_lst = religion_lst[2:]
 
     #Converting to float
     for item in religion_lst:
@@ -69,19 +72,23 @@ def demography():
             religion_lst[x] = item
         else:
             continue
-
     lcol = []
     rcol = []
     count = 1
     for i in religion_lst:
+        print(i)
         if count%2!=0:
             lcol.append(i)
         else:
             rcol.append(i)
         count+=1
 
-    lenlst = len(religion_lst)
+    #IN CASE LAST ENTRY OF TABLE IS JUST A TITLE
+    if len(lcol) != len(rcol):
+        lcol.pop(-1)
+        religion_lst.pop(-1)
 
+    lenlst = len(religion_lst)
     return render_template("data.html", dst=dst, lc = lcol, rc= rcol, rlst=religion_lst, lenlst=lenlst)
 
 
