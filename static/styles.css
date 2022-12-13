@@ -1,5 +1,5 @@
 body .bbbootstrap {
-  background-image: url(https://osu-wams-blogs-uploads.s3.amazonaws.com/blogs.dir/3492/files/2019/11/personas-header-1024x551.png) !important;
+  background-image: url(https://media.istockphoto.com/id/1369419005/photo/group-of-people-multicolor-peoples-background-teamwork-and-unity-concept.jpg?b=1&s=170667a&w=0&k=20&c=Hb5UrCI1mYg5yc42ixYUHceQ_jixEmI8oKJ3PxKGyDc=) !important;
   background-size: cover;
   padding: 180px 0 30px 0;
 }
@@ -113,4 +113,14 @@ input[type="submit"] {
   background-image: -webkit-gradient(linear, left top, left bottom, from(#38a2f7), to(#2498f7));
   background-image: -o-linear-gradient(#38a2f7, #2498f7);
   background-image: linear-gradient(#38a2f7, #2498f7);
+}
+
+#religionchart{
+  float: left;
+  margin: 10px;
+}
+
+#langchart{
+  float: left;
+  margin: 10px;
 }

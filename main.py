@@ -1,10 +1,8 @@
 from flask import Flask, render_template, url_for, session, request
-from flask_bootstrap import Bootstrap
 import requests
 from bs4 import BeautifulSoup
 
 app=Flask(__name__)
-Bootstrap(app)
 
 District_URL = "https://en.wikipedia.org/wiki/List_of_districts_of_"
 Data_URL = "https://en.wikipedia.org/wiki/"
@@ -48,6 +46,10 @@ def demography():
     print(url)
     response = requests.get(url)
     soup = BeautifulSoup(response.text, "html.parser")
+
+    #--------------------------------------------------------------------
+    #----------------------RELIGION DEMOGRAPHICS-------------------------
+
     religions = soup.find(name="div", class_="barbox")
     religions = religions.select(selector="table tbody tr td")
     religion_lst = []
@@ -76,7 +78,6 @@ def demography():
     rcol = []
     count = 1
     for i in religion_lst:
-        print(i)
         if count%2!=0:
             lcol.append(i)
         else:
@@ -89,7 +90,37 @@ def demography():
         religion_lst.pop(-1)
 
     lenlst = len(religion_lst)
-    return render_template("data.html", dst=dst, lc = lcol, rc= rcol, rlst=religion_lst, lenlst=lenlst)
+
+    #---------------------------------------------------------------------
+    #-----------------------LANGUAGE DEMOGRAPHICS---------------------------
+    langs = soup.find_all(name="div", class_="legend")
+    lang_text = []
+    lang_value = []
+    for lang in langs:
+        lang.find(name="a")
+        lang = lang.getText()
+        lang = lang.split(' ')
+        lang_text.append(lang[0].strip())
+
+
+
+        lang_value.append(lang[-1])
+
+    #REMOVING UNWANTED CHAR AND CONVERTING TO FLOAT
+    for i in lang_value:
+        x=lang_value.index(i)
+        i=i.lstrip('(')
+        i=i.rstrip('%)')
+        i=float(i)
+        lang_value[x]=i
+
+    lenlnglst = len(lang_value)
+
+
+
+
+
+    return render_template("data.html", dst=dst, rlst=religion_lst, lenlst=lenlst, langtxtlst=lang_text, langvaluelst=lang_value, lenlnglst=lenlnglst)
 
 
 if __name__ == "__main__":
