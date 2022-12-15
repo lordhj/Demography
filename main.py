@@ -28,6 +28,7 @@ def district():
     for dist in all_dist:
         try:
             d_title = dist.get("title")
+            print(d_title)
             if (d_title.split(' '))[-1] == "district":
                 districts.append(d_title.split(' district')[0])
             if (d_title.split(' '))[-1] == "District":
